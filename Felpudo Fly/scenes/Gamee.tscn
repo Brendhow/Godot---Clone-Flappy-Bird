@@ -1,0 +1,204 @@
+[gd_scene load_steps=17 format=1]
+
+[ext_resource path="res://scripts/Gamee.gd" type="Script" id=1]
+[ext_resource path="res://assets/fundo.png" type="Texture" id=2]
+[ext_resource path="res://scripts/felpudo.gd" type="Script" id=3]
+[ext_resource path="res://assets/felpudo/felpudoVoa1.png" type="Texture" id=4]
+[ext_resource path="res://assets/felpudo/felpudoVoa2.png" type="Texture" id=5]
+[ext_resource path="res://assets/felpudo/felpudoVoa3.png" type="Texture" id=6]
+[ext_resource path="res://assets/felpudo/felpudoVoa4.png" type="Texture" id=7]
+[ext_resource path="res://assets/felpudo/felpudoVoa5.png" type="Texture" id=8]
+[ext_resource path="res://assets/felpudo/felpudoVoa6.png" type="Texture" id=9]
+[ext_resource path="res://scenes/cano.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scripts/gerador.gd" type="Script" id=11]
+
+[sub_resource type="Animation" id=1]
+
+resource/name = "BackAnim"
+length = 3.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("BackAnim/Sprite1:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 3 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -1026, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BackAnim/Sprite2:transform/pos")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 3 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1026, -5.71997 ), Vector2( 0, -5.71997 ) ]
+}
+
+[sub_resource type="CircleShape2D" id=2]
+
+custom_solver_bias = 0.0
+radius = 103.732
+
+[sub_resource type="SpriteFrames" id=3]
+
+animations = [ {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "default",
+"speed": 7.0
+} ]
+
+[sub_resource type="SegmentShape2D" id=4]
+
+custom_solver_bias = 0.0
+a = Vector2( 0, 0 )
+b = Vector2( 1001.38, -0.946594 )
+
+[sub_resource type="SegmentShape2D" id=5]
+
+custom_solver_bias = 0.0
+a = Vector2( -59.0883, -5.16064 )
+b = Vector2( 940.635, -6.05078 )
+
+[node name="GameNode" type="Node2D"]
+
+script/script = ExtResource( 1 )
+
+[node name="BackAnim" type="AnimationPlayer" parent="."]
+
+editor/display_folded = true
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/BackAnim = SubResource( 1 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = "BackAnim"
+
+[node name="Sprite1" type="Sprite" parent="BackAnim"]
+
+transform/pos = Vector2( -365.462, 0 )
+transform/scale = Vector2( 3.8, 3.6 )
+texture = ExtResource( 2 )
+centered = false
+
+[node name="Sprite2" type="Sprite" parent="BackAnim"]
+
+transform/pos = Vector2( 660.538, -5.71997 )
+transform/scale = Vector2( 3.8, 3.6 )
+texture = ExtResource( 2 )
+centered = false
+
+[node name="Felpudo" type="RigidBody2D" parent="."]
+
+editor/display_folded = true
+transform/pos = Vector2( 164.11, 772.145 )
+z/z = 1
+input/pickable = false
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 15.2587, -7.96106 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+mode = 2
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 18.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = -1.0
+damp_override/angular = -1.0
+script/script = ExtResource( 3 )
+
+[node name="FelpudoAnim" type="AnimatedSprite" parent="Felpudo"]
+
+transform/scale = Vector2( 1.4, 1.4 )
+frames = SubResource( 3 )
+animation = "default"
+frame = 4
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Felpudo"]
+
+transform/pos = Vector2( 15.2587, -7.96106 )
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Limites" type="StaticBody2D" parent="."]
+
+editor/display_folded = true
+input/pickable = false
+shapes/0/shape = SubResource( 4 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+shapes/1/shape = SubResource( 5 )
+shapes/1/transform = Matrix32( 1, 0, 0, 1, 59.3981, 1705.21 )
+shapes/1/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Limites"]
+
+shape = SubResource( 4 )
+trigger = false
+_update_shape_index = 0
+
+[node name="CollisionShape2D 2" type="CollisionShape2D" parent="Limites"]
+
+transform/pos = Vector2( 59.3981, 1705.21 )
+shape = SubResource( 5 )
+trigger = false
+_update_shape_index = 1
+
+[node name="Canos" type="Node2D" parent="."]
+
+editor/display_folded = true
+z/z = 2
+
+[node name="Cano" parent="Canos" instance=ExtResource( 10 )]
+
+transform/pos = Vector2( 1199.38, 967.16 )
+z/z = 2
+
+[node name="Gerador" type="Position2D" parent="Canos"]
+
+transform/pos = Vector2( 1197.2, 978.777 )
+script/script = ExtResource( 11 )
+
+[node name="Timer" type="Timer" parent="Canos/Gerador"]
+
+process_mode = 1
+wait_time = 3.0
+one_shot = false
+autostart = true
+
+[node name="TimeToReplay" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 2.0
+one_shot = false
+autostart = false
+
+[connection signal="timeout" from="Canos/Gerador/Timer" to="Canos/Gerador" method="_on_Timer_timeout"]
+
+[connection signal="timeout" from="TimeToReplay" to="." method="_on_TimeToReplay_timeout"]
+
+
