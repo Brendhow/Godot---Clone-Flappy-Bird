@@ -20,3 +20,7 @@ func _process(delta):
 func _on_Area2D_body_enter( body ):
 	if body.get_name() == "Felpudo":
 		cena.kill()
+
+func _on_Ponto_body_enter( body ):
+	cena.pontuar()
+	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=1]
+[gd_scene load_steps=18 format=1]
 
 [ext_resource path="res://scripts/Gamee.gd" type="Script" id=1]
 [ext_resource path="res://assets/fundo.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://assets/felpudo/felpudoVoa6.png" type="Texture" id=9]
 [ext_resource path="res://scenes/cano.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scripts/gerador.gd" type="Script" id=11]
+[ext_resource path="res://assets/font160.fnt" type="BitmapFont" id=12]
 
 [sub_resource type="Animation" id=1]
 
@@ -196,6 +197,38 @@ process_mode = 1
 wait_time = 2.0
 one_shot = false
 autostart = false
+
+[node name="Node2D" type="Node2D" parent="."]
+
+z/z = 4
+
+[node name="Control" type="Control" parent="Node2D"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 40.0
+margin/bottom = 40.0
+
+[node name="Label" type="Label" parent="Node2D/Control"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 1003.0
+margin/bottom = 173.0
+custom_fonts/font = ExtResource( 12 )
+text = "0"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 [connection signal="timeout" from="Canos/Gerador/Timer" to="Canos/Gerador" method="_on_Timer_timeout"]
 
